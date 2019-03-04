@@ -22,10 +22,14 @@ tps, spy = 5e4, sp.jyear()
 ### Convert datetime.datetime object to MET seconds
 date2met = lambda dayt: sp.sce2t(-98,sp.utc2et(dayt.strftime('%Y-%m-%dT%H:%M:%S'))) / tps
 
+### Fudge factor; NH MET clock shifts 2s during the launch day
+met_fudge = -2
+
 ### ET and date and MET, all 1d after SCLK zero time
-et = sp.sct2e(-98,0.) + sp.spd()
-date0 = datetime.datetime.strptime(sp.timout(et,'Sun MON DD HR:MM:SC YYYY',99),'%c')
-met0 = date2met(date0)
+et = sp.sct2e(-98,0.) - met_fudge
+s_0 = sp.timout(et,'Sun MON DD HR:MN:SC YYYY',99)
+date0 = datetime.datetime.strptime(s_0,'%c')
+met0 = date2met(date0) + met_fudge
 
 ### Year, as a floating point value, at that time
 offset_to_launch = 2000 + ((date0 - datetime.datetime(2000,1,1,12)).total_seconds() / spy)
@@ -74,7 +78,7 @@ plt.plot(mets_y,deltas,color='b')
 ### Annotations
 plt.xlabel('MET, y (approx.)')
 plt.ylabel('dMET - dUTC, s')
-plt.title('New Horizons MET vs. Earth rotation seconds\n{}'.format(s_kernels))
+plt.title('New Horizons MET vs. Earth rotation seconds\n{} {}'.format(s_0[4:],s_kernels))
 
 ### Legend
 plt.legend(loc='best')
