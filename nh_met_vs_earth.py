@@ -19,7 +19,7 @@ s_kernels = '[{}]'.format(','.join(bn_kernels))
 ### Constants:  NH SCLK sub-ticks per NH tick second, seconds per year
 tps, spy = 5e4, sp.jyear()
 
-### Convert datetime.datetime object to MET seconds
+### Interpret datetime.datetime string as UTC and convert to MET seconds
 date2met = lambda dayt: sp.sce2t(-98,sp.utc2et(dayt.strftime('%Y-%m-%dT%H:%M:%S'))) / tps
 
 ### Fudge factor; NH MET clock shifts 2s during the launch day
@@ -77,7 +77,7 @@ plt.plot(mets_y,deltas,color='b')
 
 ### Annotations
 plt.xlabel('MET, y (approx.)')
-plt.ylabel('dMET - dUTC, s')
+plt.ylabel('dMET - dUnixtime, s')
 plt.title('New Horizons MET vs. Earth rotation seconds\n{} {}'.format(s_0[4:],s_kernels))
 
 ### Legend
