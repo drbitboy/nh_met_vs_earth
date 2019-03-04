@@ -5,7 +5,7 @@ The New Horizons (NH) spacecraft clock loses about one SI second per day, or abo
 
 The Earth as a clock, as measured by its rotation and tracked by UTC, has one leapsecond added every few years.
 
-As such, the NH clock (MET; Mission Elapsed Time) runs roughly in synchrony with Earth UTC.
+As such, the NH clock (MET; Mission Elapsed Time) runs roughly in synchrony with Earth UTC sans leapseconds.
 
 The script in this repository plots the difference between the NH MET with respect to a time near NH launch (19.January, 2006), and the corresponding non-leapsecond-corrected time, as implemented in the Python datetime module, with respect to that same time near launch.
 
