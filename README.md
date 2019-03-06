@@ -1,4 +1,25 @@
 # nh_met_vs_earth
+
+## Summary
+
+The following commands use BASH shell syntax to convert a pseudo-UTC to a New Horizons (H) Mission Event (Elapsed) Time (MET), to an accuracy of +/-1s:
+
+    % let met=$(date --date="2015-07-14 11:50:00 +0000" +%s)-$(date --date="2006-01-19 18:08:02 +0000" +%s) ; echo $met
+    299180518
+
+    % let met=$(date --date="2019-01-01 05:33:22 +0000" +%s)-$(date --date="2006-01-19 18:08:02 +0000" +%s) ; echo $met
+    408626720
+
+The reverse conversion is performed like this:
+
+    % date --date="2006-01-19 18:08:02 +0000 + 299180518 seconds" --utc +%Y-%m-%dT%H:%M:%S
+    2015-07-14T11:50:00
+
+    % date --date="2006-01-19 18:08:02 +0000 + 408626720 seconds" --utc +%Y-%m-%dT%H:%M:%S
+    2019-01-01T05:33:22
+
+See below for validation of results
+
 ## Compare New Horizons clock to Earth rotation
 
 The New Horizons (NH) spacecraft clock loses about one SI second per day, or about 1s per 3y.
@@ -20,3 +41,23 @@ The first and second triplets for SCLK01_COEFFICIENTS_98 in NH SCLK-Kernels (new
 The second script, nh_met_2s_anomaly.py, demonstrates that the difference between the first and second TDB values should be about 2.3s less than it is.  In addition it generates the plot below, which shows the result, near that brief period, of starting with an ET, converting it to an SCLK ticks value, and then back to an ET, which should be equal to the starting ET.
 
 ![NH MET 2s Anomaly plot](nh_met_2s_anomaly.png)
+
+## Validation of results
+
+The following commands use the SPICE CHRONOS utility to make the same conversions
+
+    % chronos -setup mk.tm -from utc -to sclk -time 2015-07-14T11:50:00
+    3/0299180518:06211                                              (SCLK/SCLK)
+
+    chronos -setup mk.tm -from utc -to sclk -time 2019-01-01T05:33:22
+    3/0408626719:42579                                              (SCLK/SCLK)
+
+The contents of the meta-kernel (MK) used in those CHRONOS commands, mk.tm:
+
+    \begindata
+    LEAPSECONDS_FILE = 'naif0012.tls'
+    SCLK_FILE        = 'new-horizons_1767.tsc'
+    SPACECRAFT_ID    = -98
+    CENTER_ID        = -98
+    \begintext
+
