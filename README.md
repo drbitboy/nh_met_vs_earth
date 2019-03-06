@@ -34,7 +34,7 @@ The reverse conversion is performed like this:
 
 See below for validation and of these results and an explanation of these commands.
 
-## Compare New Horizons NET to Earth rotation
+## Compare New Horizons MET to Earth rotation
 
 The NH spacecraft clock loses about one SI millisecond per day, or just over 1s per 3y.
 
