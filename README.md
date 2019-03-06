@@ -2,7 +2,7 @@
 
 ## Summary
 
-The Unix(tm) time system, and indeed the built-in time systems for most computers, smartphones, etc., can be used to approximate the relationship between the New Horizons (NH) Mission Event/Elapsed Time (MET) and Coordinated Universal Time (UTC) to an accuracy of less than one second.
+The Unix(tm) time system, and indeed the built-in time systems for most computers, smartphones, eXcel, etc., can be used to approximate the relationship between the New Horizons (NH) Mission Event/Elapsed Time (MET) and Coordinated Universal Time (UTC) to an accuracy of less than one second.
 
 ## Background
 
