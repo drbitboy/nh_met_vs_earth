@@ -22,7 +22,7 @@ See below for validation of results
 
 ## Compare New Horizons clock to Earth rotation
 
-The New Horizons (NH) spacecraft clock loses about one SI second per day, or about 1s per 3y.
+The New Horizons (NH) spacecraft clock loses about one SI millisecond per day, or just over 1s per 3y.
 
 The Earth as a clock, as measured by its rotation and tracked by UTC, has one leapsecond added every few years.
 
