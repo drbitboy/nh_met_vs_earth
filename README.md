@@ -48,14 +48,6 @@ The result shows that simple Unix-like time calculations time can be used to con
 
 ![NH MET vs Earth rotation plot image](nh_met_vs_earth_rotation.png)
 
-## Two Seconds of Fudge
-
-The first and second triplets for SCLK01_COEFFICIENTS_98 in NH SCLK-Kernels (new-horizons_VVVV.tsc, where VVVV is version number e.g. 1767) have an inconsistent relationship.  Specifically, the TDBseconds/METseconds slope from the first line does not represent the ratio between the TDB and tick values.  Operationally this is not an issue since this anomaly only shows up for a duration of about 2.3s at about 15h after the SCLK zero time.
-
-The second script, nh_met_2s_anomaly.py, demonstrates that the difference between the first and second TDB values should be about 2.3s less than it is.  In addition it generates the plot below, which shows the result, near that brief period, of starting with an ET, converting it to an SCLK ticks value, and then back to an ET, which should be equal to the starting ET.
-
-![NH MET 2s Anomaly plot](nh_met_2s_anomaly.png)
-
 ## Validation of results
 
 The following commands use the SPICE CHRONOS utility to make the same conversions
@@ -135,3 +127,13 @@ Here is the basic command to convert an NH MET to UTC:
 becomes
 
     2015-07-14T11:50:00
+
+## Two Seconds of Fudge
+
+The NH MET epoch - the time NH MET is zero - in the the NH SCLK-Kernel file is @19-JAN-2006-18:09:05.184000, which is a Terrestrial Dynamic time (TDT; equivalent to Barycentric Dynamical Time, TDB for the purposes of this essay) at a time when there were 65.184 leapseconds between TDT and UTC, so the equvalent UTC is 2006-01-19T18:08:00.  That UTC value is incorrect, and the nh_met_vs_earth.py script corrects it to 2006-01-19T18:08:02 via a fudge factor two seconds.  The origin of that fudge factor is explained below, which explanation requires an more extensive understanding of the [SCLK system](https://naif.jpl.nasa.gov/pub/naif/toolkit_docs/C/req/sclk.html) of the NAIF/SPICE toolkit.
+
+The reason for the fudge factor is that the first and second triplets for SCLK01_COEFFICIENTS_98 in NH SCLK-Kernels (new-horizons_VVVV.tsc, where VVVV is version number e.g. 1767) have an inconsistent relationship.  Specifically, the TDBseconds/METseconds slope from the first line does not represent the ratio between the TDB and tick values.  Operationally this is not an issue since this anomaly only shows up for a duration of about 2.3s at about 15h after the SCLK zero time.
+
+The second script, nh_met_2s_anomaly.py, demonstrates that the difference between the first and second TDB values should be about 2.3s less than it is.  In addition it generates the plot below, which shows the result, near that brief period, of starting with an ET, converting it to an SCLK ticks value, and then back to an ET, which should be equal to the starting ET.
+
+![NH MET 2s Anomaly plot](nh_met_2s_anomaly.png)
