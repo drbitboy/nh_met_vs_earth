@@ -130,7 +130,7 @@ Here is the basic command to convert an NH MET to UTC:
 
 - So this command
 
-    % date --date="2006-01-19 18:08:02 +0000 + 299180518 seconds" --utc +%Y-%m-%dT%H:%M:%S
+    date --date="2006-01-19 18:08:02 +0000 + 299180518 seconds" --utc +%Y-%m-%dT%H:%M:%S
 
 becomes
 
